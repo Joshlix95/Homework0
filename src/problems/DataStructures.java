@@ -17,6 +17,30 @@ public class DataStructures {
      */
     public static int mostCommon(int[] input) {
         /* Implement this */
+        
+        /* Not yet implemented */
+        // - Apply quick sort  to the array 
+        // - Go through the array once and count how often each element occurs
+        
+        /* Inefficient and less likely to work */
+        int most = input[0];
+        int len = input.length;
+        int count = 0;
+        
+        for (int i = 0; i < len; i++){
+            int frequency = 0;
+            for (int j = 0; j < len; j++){
+                if (input[j] == input[i]){
+                    frequency += 1;
+                }
+                
+                if (frequency > count){
+                    count = frequency;
+                    most = i;
+                }
+            }
+        }
+        
         return 0;
     }
 
