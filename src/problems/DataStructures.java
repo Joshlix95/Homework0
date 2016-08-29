@@ -1,7 +1,13 @@
+/**********************************
+* Name: Josuel Musambaghani
+* HOMEWORK 0 - Software Engineering
+* ********************************* */
+
 package problems;
 
-public class DataStructures {
+import java.util.Arrays;
 
+public class DataStructures {
     /**
      * Given an array of integers, return the integer that appears the most.
      * If there is a tie for most common, then return the integer that
@@ -16,32 +22,26 @@ public class DataStructures {
      * [] => 0
      */
     public static int mostCommon(int[] input) {
-        /* Implement this */
-        
-        /* Not yet implemented */
-        // - Apply quick sort  to the array 
-        // - Go through the array once and count how often each element occurs
-        
-        /* Inefficient and less likely to work */
-        int most = input[0];
-        int len = input.length;
-        int count = 0;
-        
-        for (int i = 0; i < len; i++){
-            int frequency = 0;
-            for (int j = 0; j < len; j++){
+        if (input == null || input.length == 0) return 0;
+
+        int count = 0,
+                result = input[0];
+
+        for (int i = 0; i < input.length - 1; i++){
+            int elt_count = 0;
+
+            for (int j = 0; j < input.length; j++){
                 if (input[j] == input[i]){
-                    frequency += 1;
-                }
-                
-                if (frequency > count){
-                    count = frequency;
-                    most = i;
+                    elt_count++;
                 }
             }
+
+            if (elt_count > count){
+                count = elt_count;
+                result = input[i];
+            }
         }
-        
-        return 0;
+        return result;
     }
 
     /**
@@ -61,7 +61,37 @@ public class DataStructures {
      * Arrays.copyOfRange(int[] arr, int from, int to)
      */
     public static int[] computeThePattern(int[] input) {
-        /* Implement this */
-        return new int[0];
+        if (input == null || input.length <= 1) return new int[0];
+
+        boolean hasPattern = false;
+        int[] temp1 = Arrays.copyOfRange(input, 1 , input.length),
+                temp2 = Arrays.copyOfRange(input, 0 , input.length - 1),
+                pattern = new int[input.length - 1];
+
+        for (int i = 0; i < pattern.length; i++){
+            pattern[i] = temp1[i] - temp2[i];
+        }
+
+        int middle = pattern.length % 2 != 0 ? pattern.length / 2 + 1 : pattern.length / 2;
+
+        for (int i = 1; i < pattern.length; i++){
+            int mod, count = 0;
+            boolean isSubseq = true;
+
+            int[] subseq = Arrays.copyOfRange(pattern, 0, i);
+
+            for (int j = 0; j < pattern.length; j += i){
+                int [] compare = Arrays.copyOfRange(pattern, j, j+i);
+                if (!(Arrays.equals(subseq, compare))){
+                    isSubseq = false;
+                    break;
+                }
+            }
+
+            if (isSubseq)
+                return subseq;
+        }
+
+        return hasPattern ? new int[0] : pattern;
     }
 }
