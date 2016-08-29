@@ -8,6 +8,7 @@ package problems;
 import java.util.Arrays;
 
 public class DataStructures {
+    
     /**
      * Given an array of integers, return the integer that appears the most.
      * If there is a tie for most common, then return the integer that
