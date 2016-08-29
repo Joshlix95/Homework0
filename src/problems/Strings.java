@@ -1,3 +1,8 @@
+/**
+ * Name: Josuel Musambaghani
+ * HOMEWORK 0 - Software Engineering
+ */
+
 package problems;
 
 public class Strings {
@@ -20,7 +25,17 @@ public class Strings {
      */
     public static String toAcronym(String input) {
         /* Implement this */
-        return "";
+        if (input == null) return "";
+
+        input = input.replaceAll(" [^A-Za-z0-9]", " ");
+        String output = "";
+        String[] splitted = input.split("\\s+");
+
+        for (int i = 0; i < splitted.length; i++){
+            if (splitted[i].length() >= 1)
+                output += Character.toUpperCase(splitted[i].charAt(0));
+        }
+        return output;
     }
 
     /**
@@ -46,7 +61,19 @@ public class Strings {
      */
     public static boolean isPalindrome(String input) {
         /* Implement this */
-        return false;
+        if (input == null) return false;
+
+        input = input.replaceAll("[^A-Za-z0-9]", "");
+        int len = input.length(),
+                middle = input.length() % 2 != 0 ? input.length()/2 + 1 : input.length()/2;
+
+        if (len <= 1) return true;
+
+        for (int i = 0; i < middle; i++){
+            if (Character.toLowerCase(input.charAt(i)) != Character.toLowerCase(input.charAt(len-i-1))) return false;
+        }
+
+        return true;
     }
 
     /**
@@ -62,6 +89,36 @@ public class Strings {
      */
     public static int alphabeticalCount(String input) {
         /* Implement this */
-        return 0;
+        if (input == null) return 0;
+
+        String alphabet = "abcdefghijklmnopqrstuvwxyz",
+                input_lower = "";
+        input = input.replaceAll("[^A-Za-z0-9]", "");
+
+        for (int i = 0; i < input.length(); i++)
+            input_lower += Character.toLowerCase(input.charAt(i));
+
+        int len = input_lower.length();
+        String result = "";
+        String[] elts = new String[len];
+
+        for (int i = 0; i < len ; i++){
+            elts[i] = input_lower.substring(i);
+        }
+
+        for (int i = 0; i < len; i++) {
+            String sub = elts[i];
+            int size = elts[i].length();
+
+            for (int j = 0; j < size; j++){
+                String substr = sub.substring(0, size - j);
+
+                if (alphabet.contains(substr) && substr.length() > result.length()){
+                    result = substr;
+                }
+            }
+        }
+
+        return result.length();
     }
 }
