@@ -1,10 +1,13 @@
+/***********************************
+ * Name: Josuel Musambaghani
+ * HOMEWORK 0 - Software Engineering
+ * ********************************* */
+
 package problems;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Loops {
-
     /**
      * Create a map of each alphabetic character (A-Z,a-z) to its ASCII value.
      * @return the map
@@ -17,8 +20,16 @@ public class Loops {
      * Remember that for-loops can use any primitive data type.
      */
     public static Map<Character, Integer> createAsciiMap() {
-        /* Implement this */
-        return new HashMap<Character, Integer>();
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        int len = alphabet.length;
+        for (int i = 0; i < len; i++){
+            map.put(alphabet[i],i + 65);
+        }
+        for (int i = 0; i < len; i++){
+            map.put(Character.toLowerCase(alphabet[i]), i + 97);
+        }
+        return map;
     }
 
     /**
@@ -34,8 +45,17 @@ public class Loops {
      *  [3]] => 6
      */
     public static int computeSum(int[][] input) {
-        /* Implement this */
-        return 0;
+        if (input == null) return 0;
+
+        int total = 0;
+        for (int i = 0; i < input.length; i++){
+            int sum = 0;
+            for (int j = 0; j < input[i].length; j++){
+                sum += input[i][j];
+            }
+            total += sum;
+        }
+        return total;
     }
 
     /**
@@ -56,7 +76,26 @@ public class Loops {
      * Collections.sort(List<T> list);
      */
     public static String mapToString(Map<Character, Integer> characterAppearance) {
-        /* Implement this */
-        return "";
+        if (characterAppearance == null) return "";
+
+        String result = "";
+        boolean still = true;
+
+        while (still){
+            List T = new ArrayList(characterAppearance.keySet());
+            Collections.sort(T);
+            still = false;
+            for (int i = 0; i < T.size(); i++) {
+                result += T.get(i);
+                characterAppearance.put(T.get(i).toString().charAt(0), characterAppearance.get(T.get(i)) - 1);
+
+                if (characterAppearance.get(T.get(i)) > 0)
+                    still = true;
+                else if (characterAppearance.get(T.get(i)) == 0)
+                    characterAppearance.remove(T.get(i));
+            }
+        }
+
+        return (characterAppearance == null ? "" : result);
     }
 }
